@@ -1,0 +1,186 @@
+<html>
+	<head>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+#svg1 {
+	position:absolute;
+	animation:spin 180s linear infinite;
+	font-family: 'Architects Daughter', cursive;
+	top:-760px;
+	left:-960px;
+}
+#svg2
+{
+	position:absolute;
+	animation:spin2 30s linear infinite;
+	top:-560px;
+	left:244px;
+}
+@keyframes spin {
+	100% {
+	transform:rotate(-360deg);
+	}
+}
+@keyframes spin2 {
+	100% {
+	transform:rotate(360deg);
+	}
+}
+@keyframes spin3 {
+	100% {
+	transform:rotate(-360deg);
+	}
+}
+
+body
+{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	position:absolute;
+	background:black;
+	#top:-760px;
+	#left:-960px;
+}
+#text
+{
+  position:absolute;
+	animation:spin3 180s linear infinite;
+  transform-origin:500px 300px;
+  left:-600px;
+  top:0px;
+  color:white;
+	font-family: 'Architects Daughter', cursive;
+}
+#text div span:hover
+{
+  font-family:'Arial';
+  font-weight:bold;
+  color:rgba(128,255,192,0.8);
+  font-size:1.2em;
+  text-shadow:rgba(0,0,0,1) 1px 0px 0px, rgba(0,255,255,0.8) 2px 2px 1px !important;
+}
+</style>
+	</head>
+	<body>
+        <div id='text'></div>
+		<div id='svg1'></div>
+		<div id='svg2'></div>
+	</body>
+	<script>
+let text=`Initiative
+	Without it, nothing happens
+	The first brushstrokes of a new work
+	Drawing from inspiration before ink flows
+	Spilling onto the page, words as acrylic or watercolour
+	Painting
+	The final work, an end result of canvas and paint
+	An artist creating something through the lens of their perception
+	Affecting how the viewer may see the world
+	Or offering for consideration how they do
+	Proposal
+	We should do the thing this way
+	If this was the way we were already doing it
+	We would not need to consider this alternative
+	Doing the same thing differently, aiming for a better outcome
+	Variation
+	Repetition of a theme or sequence with changes to some elements
+	Wake up, do different activities, sleep
+	Repeat
+	Your life, days of variation, sequences of situations
+	Situation
+	Everything - facts, conditions, events - affecting you
+	At this time and where you are, right now
+	Were you passive in getting here, going with the flow
+	Or did you act before others were able, gaining an advantage`;
+let lines=text.split('\n');
+let container=document.createElement('div');
+document.body.appendChild(container);
+let svgText='<svg width="1920" height="1920">';
+let divisor=5;
+let fraction=(360/25)/divisor;
+let rotate=0;
+let textDiv=document.querySelector('#text');
+let index=0;
+for(var j=0; j<divisor; j++)
+{
+  for(var i=0; i<lines.length; i++)
+  {
+    let div=document.createElement('div');
+    textDiv.appendChild(div);
+    let extraStyle='';
+    if(i%5==0)
+    {
+      extraStyle='opacity:0.5;';
+    }
+    div.setAttribute('style', 'position:absolute; top:300px; text-align:center; width:1000px; left:00px; transform:rotate('+rotate+'deg) translateX(600px); text-shadow:rgba(0,0,255,0.8) 1px 0px 4px, rgba(0,0,255,1) 1px 0px 4px;'+extraStyle);
+	  rotate+=fraction;
+    div.innerHTML='<span>'+lines[i]+'</span>';
+    div.querySelector('span').addEventListener('mouseenter', function(index)
+      {
+        let each=(index+1)%25;
+        let h=Math.round(Math.random()*360);
+        Array.from(document.querySelector('#text').querySelectorAll('div:nth-child(25n+'+each+')')).map(function(el) {
+          el.style.color='hsl('+h+', 100%, 75%)';
+          el.style.textShadow='hsl('+(h+90)+', 100%, 50%) 0px 0px 5px)';
+          });
+      }.bind(undefined, index));
+    index++;
+  }
+}
+let textRotation=0;
+let textRotationIncrement=0.01;
+/*window.setInterval(function(){
+  textDiv.style.transform="rotate("+textRotation+"deg)";
+  textRotation=(textRotation+textRotationIncrement)%360;
+  textRotation=textRotation<0?textRotation+360:textRotation;
+}, 33);*/
+/*
+for(var j=0; j<divisor; j++)
+{
+       for(var i=0; i<lines.length; i++)
+       {
+	 svgText+="<text font-size='1.2em' text-anchor='middle'";
+	   if(i%5==0)
+	   {
+             svgText+=" fill='rgba(180,180,255,0.9)' "
+	     svgText+=" font-weight='bold' "
+           }
+	   else
+	   {
+	     svgText+=" fill='white' ";
+           }
+	   svgText+="transform=\"translate(1000,1000) rotate("+rotate+",0,0) translate(600,0)\">"+lines[i]+"</text>\n";
+	   rotate+=fraction;
+	 }
+ }
+ svgText+="</svg>"
+document.querySelector('#svg1').innerHTML=svgText;
+rotate=0;
+svgText='<svg width="1920" height="1920">';
+for(var j=0; j<divisor; j++)
+{
+       for(var i=0; i<lines.length; i++)
+       {
+	 svgText+="<text text-anchor='left'";
+	   if(i%5==0)
+	   {
+             svgText+=" fill='rgba(128,128,255,0.5)' "
+	     svgText+=" font-weight='bold' "
+           }
+	   else
+	   {
+	     svgText+=" fill='white' ";
+           }
+	   svgText+="transform=\"translate(1000,1000) rotate("+rotate+",0,0) translate(-420,0)\">"+lines[i]+"</text>\n";
+	   rotate-=fraction;
+	 }
+ }
+ svgText+="</svg>"
+*/
+//document.querySelector('#svg2').innerHTML=svgText;
+ //container.innerHTML=svgText;
+	</script>
+</html>
